@@ -2,7 +2,7 @@ import React,{useEffect, useState} from 'react'
 
 
 
-export const Formulario = ({estudiantes, setEstudiantes, estudiante}) => {
+export const Formulario = ({estudiantes, setEstudiantes, estudiante, setEstudiante}) => {
 
   
 
@@ -19,11 +19,23 @@ export const Formulario = ({estudiantes, setEstudiantes, estudiante}) => {
     setCarrera(estudiante.carrera)
     setSemestre(estudiante.semestre)
     setPromedio(estudiante.promedio)
-
     }
-
-    
   }, [estudiante])
+
+  useEffect(() => {
+
+    if(Object.keys(estudiante).length > 0){
+      
+    setNombre(estudiante.nombre)
+    setCarrera(estudiante.carrera)
+    setSemestre(estudiante.semestre)
+    setPromedio(estudiante.promedio)
+    }
+  }, [estudiante])
+  
+
+ 
+
 
   const generarID = () =>{
     const fecha = Date.now().toString(36);
@@ -37,6 +49,7 @@ export const Formulario = ({estudiantes, setEstudiantes, estudiante}) => {
   const [error, setError] = useState(false);
 
   const manejadorSubmit = (e)=>{
+    
     e.preventDefault();
     
     if([nombre.trim(),carrera.trim(),semestre.trim(),promedio.trim()].includes('')){
@@ -55,18 +68,17 @@ export const Formulario = ({estudiantes, setEstudiantes, estudiante}) => {
       promedio
    
      }
+     
 
      if(estudiante.id){
      
       objetoEstudiante.id = estudiante.id;
-      console.log(objetoEstudiante.id);
+     
       const estudiantesActualizados = estudiantes.map(estudianteState => estudianteState.id === estudiante.id ? objetoEstudiante : estudianteState )
       setEstudiantes(estudiantesActualizados)
-
+      setEstudiante({});
       
       
-
-
       
      } else{
       objetoEstudiante.id = generarID()
@@ -89,8 +101,8 @@ export const Formulario = ({estudiantes, setEstudiantes, estudiante}) => {
 
   return ( 
 
-    <div className='p-[20px] md:w-1/2  bg-[#E9DF00] rounded-md'>
-        <h1 className='font-bold text-center text-lg '>Registro de estudiantes</h1>
+    <div className='p-[20px] md:w-1/2  bg-[#333333] rounded-md'>
+        <h1 className='font-bold text-center text-2xl text-white '>Registro de estudiantes</h1>
         <form 
         onSubmit={manejadorSubmit}
         >
@@ -102,16 +114,16 @@ export const Formulario = ({estudiantes, setEstudiantes, estudiante}) => {
 
             <div>
 
-            <label className='block' htmlFor="">Nombre Estudiante</label>
+            <label className='block text-white' htmlFor="">Nombre Estudiante</label>
             <input className='border-2 w-full p-1 mb-2 mt-2 rounded-md'value={nombre} onChange={(e)=> setNombre(e.target.value)} type="text"placeholder='Nombre completo' />
 
-            <label className='block' htmlFor="">Carrera</label>
+            <label className='block text-white' htmlFor="">Carrera</label>
             <input className='border-2 w-full p-1 mb-2 rounded-md'value={carrera} onChange={(e)=> setCarrera(e.target.value)} type="text"placeholder='Carrera' />
 
-            <label className='block' htmlFor="">Semestre</label>
+            <label className='block text-white' htmlFor="">Semestre</label>
             <input className='border-2 w-full p-1 mb-2 rounded-md' value={semestre} onChange={(e)=> setSemestre(e.target.value)} type="text"placeholder='Semestre' />
 
-            <label className='block' htmlFor="">Promedio</label>
+            <label className='block text-white' htmlFor="">Promedio</label>
             <input className='border-2 w-full p-1 mb-2 rounded-md' value={promedio} onChange={(e)=> setPromedio(e.target.value)} type="text"placeholder='Promedio' />
             
             </div>
