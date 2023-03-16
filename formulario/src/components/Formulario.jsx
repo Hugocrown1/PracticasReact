@@ -19,6 +19,8 @@ export const Formulario = ({estudiantes, setEstudiantes, estudiante, setEstudian
     setCarrera(estudiante.carrera)
     setSemestre(estudiante.semestre)
     setPromedio(estudiante.promedio)
+    }else{
+      limpiar();
     }
   }, [estudiante])
 
