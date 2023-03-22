@@ -1,0 +1,4 @@
+# NOTAS
+- async
+  
+- away
